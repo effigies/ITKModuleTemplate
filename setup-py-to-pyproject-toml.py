@@ -9,6 +9,7 @@ import re
 import sys
 import argparse
 import runpy
+from packaging.version import Version
 
 
 def make_shim():
@@ -36,7 +37,8 @@ def setup_py_to_pyproject_toml(setup_python_path):
     #     setup_py = f.read()
 
     project_name = capture['name']
-    project_version = capture['version']
+    current_version = Version(capture['version'])
+    project_version = f'{current_version.major}.{current_version.minor + 1}.0'
     project_description = capture['description']
     project_author = capture['author']
     project_author_email = capture['author_email']
